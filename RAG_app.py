@@ -17,10 +17,39 @@ TOP_K = 5
 BASE_DIR = Path(__file__).parent
 PRELOADED_DIR = BASE_DIR / "documents"
 
-st.set_page_config(page_title="AI RAG Document Chat", page_icon="📚", layout="wide")
-st.title(APP_TITLE)
-st.caption("Ask questions from preloaded PDFs, your own PDFs, or both.")
+st.set_page_config(
+    page_title="SmartDocs AI",
+    page_icon="📚",
+    layout="wide"
+)
 
+st.title("📚 SmartDocs AI")
+
+st.markdown("""
+### 🔐 Cyber Security Fundamentals
+
+This section contains a **Cyber Security Fundamentals** document provided by SmartDocs AI.
+
+You can ask questions related to the topics covered in this document, and the AI will answer using information from the PDF.
+
+**💡 Example questions:**
+- What is cybersecurity?
+- What is phishing?
+- What is malware?
+- What is social engineering?
+- How does encryption protect data?
+- What are common cyber attacks?
+""")
+
+st.divider()
+
+st.markdown("""
+### 📤 Ask Questions From Your Own PDF
+
+Have your own document? Upload a PDF and ask questions about its content.
+
+Your uploaded PDF will be processed by the RAG system, and you can ask questions based on the information inside it.
+""")
 
 def get_api_key():
     try:
@@ -195,35 +224,57 @@ if "indexed_signature" not in st.session_state:
     st.session_state.indexed_signature = None
 
 with st.sidebar:
-    st.header("📄 Documents")
+    st.header("📚 SmartDocs AI")
+
+    st.subheader("🔐 Preloaded Document")
+
     preloaded = load_preloaded_pdfs()
 
     if preloaded:
-        st.success(f"{len(preloaded)} preloaded PDF(s) available.")
+        st.success("Cyber Security Fundamentals is available.")
+
         for item in preloaded:
             st.write(f"📘 {item['name']}")
+
+        st.caption(
+            "Ask questions about Cyber Security Fundamentals "
+            "in the main chat."
+        )
     else:
-        st.info("No preloaded PDFs found in the documents folder.")
+        st.warning("No preloaded PDF found.")
+
+    st.divider()
+
+    st.subheader("📤 Upload Your Own PDF")
+
+    st.caption(
+        "Upload your own PDF if you want to ask questions "
+        "about a different document."
+    )
 
     uploaded_files = st.file_uploader(
-        "Upload your own PDF(s)",
+        "Choose PDF file(s)",
         type=["pdf"],
         accept_multiple_files=True,
-        help="You can upload one or multiple PDF files.",
+        help="Upload one or multiple PDF files."
     )
 
     if uploaded_files:
         st.session_state.uploaded_pdfs = [
-            {"name": file.name, "bytes": file.getvalue(), "type": "uploaded"}
+            {
+                "name": file.name,
+                "bytes": file.getvalue(),
+                "type": "uploaded"
+            }
             for file in uploaded_files
         ]
 
     if st.session_state.uploaded_pdfs:
-        st.write("Your uploaded PDFs:")
-        for item in st.session_state.uploaded_pdfs:
-            st.write(f"📗 {item['name']}")
+        st.write("📗 Your uploaded PDF(s):")
 
-all_pdf_items = preloaded + st.session_state.uploaded_pdfs
+        for item in st.session_state.uploaded_pdfs:
+            st.write(f"• {item['name']}")
+            all_pdf_items = preloaded + st.session_state.uploaded_pdfs
 
 if not all_pdf_items:
     st.warning("Add at least one PDF to start.")
