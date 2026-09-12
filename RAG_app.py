@@ -26,7 +26,6 @@ st.set_page_config(
 st.title("📚 SmartDocs AI")
 
 st.markdown("""
-st.markdown("""
 ### 🔐 Cyber Security Fundamentals
 
 This section contains a **Cyber Security Fundamentals** document provided by SmartDocs AI.
