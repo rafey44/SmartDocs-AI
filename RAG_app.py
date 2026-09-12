@@ -26,19 +26,14 @@ st.set_page_config(
 st.title("📚 SmartDocs AI")
 
 st.markdown("""
+st.markdown("""
 ### 🔐 Cyber Security Fundamentals
 
 This section contains a **Cyber Security Fundamentals** document provided by SmartDocs AI.
 
-You can ask questions related to the topics covered in this document, and the AI will answer using information from the PDF.
+You can ask questions related to the content covered in this document, and the AI will answer using information retrieved from the PDF.
 
-**💡 Example questions:**
-- What is cybersecurity?
-- What is phishing?
-- What is malware?
-- What is social engineering?
-- How does encryption protect data?
-- What are common cyber attacks?
+💡 **Ask any question about the document's content.**
 """)
 
 st.divider()
