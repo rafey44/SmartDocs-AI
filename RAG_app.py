@@ -274,7 +274,8 @@ with st.sidebar:
 
         for item in st.session_state.uploaded_pdfs:
             st.write(f"• {item['name']}")
-            all_pdf_items = preloaded + st.session_state.uploaded_pdfs
+           
+all_pdf_items = preloaded + st.session_state.uploaded_pdfs
 
 if not all_pdf_items:
     st.warning("Add at least one PDF to start.")
